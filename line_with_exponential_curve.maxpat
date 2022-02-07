@@ -40,11 +40,24 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"activebgcolor" : [ 0.156862745098039, 0.156862745098039, 0.156862745098039, 0.0 ],
+					"activelinecolor" : [ 0.541176470588235, 0.580392156862745, 1.0, 1.0 ],
+					"id" : "obj-3",
+					"maxclass" : "live.scope~",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 10.0, 110.0, 184.0, 68.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -86,15 +99,26 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "curve(input, lo, hi, amount)\n{\n    v = (input-lo) / (hi-lo);\n    \n    if(amount>0) v = exp(ln(v) * (1/(1-amount)));\n    else         v = exp(ln(v) * (1+amount));\n\n    v = v*(hi-lo) + lo;\n\n    return v;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=0, max=1);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory c(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    c  = curve;\n    x1 = in1;\n\n    if(y1<in1)\n    {\n        lo = y1;\n        hi = in1;\n    }\n    else\n    {\n        lo = in1;\n        hi = y1;\n    }\n}\n\nout1 = curve(y1, lo, hi. c);\n\ny1   = clip(y1+d, lo, hi);\n",
+									"id" : "obj-2",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 430.0, 870.0, 38.0, 21.0 ],
+									"text" : "out 2"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"code" : "curve(input, lo, hi, amount)\n{\n    v = (input-lo) / (hi-lo);\n    \n    if(amount>0)\n    {\n        v = exp(ln(v) * (1/(1-amount)));\n    }\n    else\n    {\n        v = exp(ln(v) * (1+amount));\n    }\n\n    v = v*(hi-lo) + lo;\n\n    return v;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory c(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\n\n\nHistory ye(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    c  = curve;\n    x1 = in1;\n\n    if(y1<in1)\n    {\n        lo = ye;\n        hi = in1;\n    }\n    else\n    {\n        lo = in1;\n        hi = ye;\n    }\n}\n\ny0 = scale(y1, lo, hi, 0, 1);\ny0 = curve(y0, 0, 1, c);\ny0 = scale(y0, 0, 1, lo, hi);\n\nout1 = y0;\n//out1 = curve(out1, 0, 1, c);\n//out1 = scale(out1, 0, 1, lo, hi);\n\nout2 = y1;\n\n// out2 = curve(y1, lo, hi, c);\n//out1 = y1;\n\ny1   = clip(y1+d, lo, hi);\nye   = y0;",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
 									"id" : "obj-5",
 									"maxclass" : "codebox",
 									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 10.0, 40.0, 520.0, 800.0 ]
 								}
 
@@ -127,6 +151,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"source" : [ "obj-5", 1 ]
 								}
 
 							}
@@ -252,6 +283,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-10", 0 ]
 				}
@@ -289,6 +327,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
