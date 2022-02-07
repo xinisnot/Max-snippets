@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 296.0, 241.0, 640.0, 480.0 ],
+		"rect" : [ 1144.0, 308.0, 640.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -121,7 +121,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// parameters\n\nParam time(1000, min=0);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory y(0);\nHistory x(0);\nHistory lo(0);\nHistory hi(0);\n\n//============================================================\n// main loop\n\nif(in1!=x)\n{\n    d = (in1-y)/mstosamps(time);\n    x = in1;\n\n    if(y<in1)\n    {\n        lo = y;\n        hi = in1;\n    }\n    else\n    {\n        lo = in1;\n        hi = y;\n    }\n}\n\nout1 = y;\ny    = clip(y+d, lo, hi);\n",
+									"code" : "//============================================================\n// parameters\n\nParam time(1000, min=0);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    x1 = in1;\n\n    if(y1<in1)\n    {\n        lo = y1;\n        hi = in1;\n    }\n    else\n    {\n        lo = in1;\n        hi = y1;\n    }\n}\n\ny0   = clip(y1+d, lo, hi);\r\nout1 = y0;\r\ny1   = y0;",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -175,7 +175,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 80.0, 50.5, 21.0 ],
+					"patching_rect" : [ 10.0, 80.0, 32.0, 21.0 ],
 					"text" : "gen~"
 				}
 

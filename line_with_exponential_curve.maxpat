@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 86.0, 151.0, 640.0, 480.0 ],
+		"rect" : [ 1045.0, 481.0, 640.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,24 +40,11 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"activebgcolor" : [ 0.156862745098039, 0.156862745098039, 0.156862745098039, 0.0 ],
-					"activelinecolor" : [ 0.541176470588235, 0.580392156862745, 1.0, 1.0 ],
-					"id" : "obj-3",
-					"maxclass" : "live.scope~",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 10.0, 110.0, 184.0, 68.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "signal", "signal" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -69,7 +56,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 682.0, 87.0, 554.0, 894.0 ],
+						"rect" : [ 1147.0, 87.0, 554.0, 925.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -99,27 +86,16 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"id" : "obj-2",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 430.0, 870.0, 38.0, 21.0 ],
-									"text" : "out 2"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"code" : "curve(input, lo, hi, amount)\n{\n    v = (input-lo) / (hi-lo);\n    \n    if(amount>0)\n    {\n        v = exp(ln(v) * (1/(1-amount)));\n    }\n    else\n    {\n        v = exp(ln(v) * (1+amount));\n    }\n\n    v = v*(hi-lo) + lo;\n\n    return v;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory c(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\n\n\nHistory ye(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    c  = curve;\n    x1 = in1;\n\n    if(y1<in1)\n    {\n        lo = ye;\n        hi = in1;\n    }\n    else\n    {\n        lo = in1;\n        hi = ye;\n    }\n}\n\ny0 = scale(y1, lo, hi, 0, 1);\ny0 = curve(y0, 0, 1, c);\ny0 = scale(y0, 0, 1, lo, hi);\n\nout1 = y0;\n//out1 = curve(out1, 0, 1, c);\n//out1 = scale(out1, 0, 1, lo, hi);\n\nout2 = y1;\n\n// out2 = curve(y1, lo, hi, c);\n//out1 = y1;\n\ny1   = clip(y1+d, lo, hi);\nye   = y0;",
+									"code" : "curve(input, lo, hi, amount)\n{\n    v = (input-lo) / (hi-lo);\n    \n    if(amount>0)\n    {\n        v = exp(ln(v) * (1/(1-amount)));\n    }\n    else\n    {\n        v = exp(ln(v) * (1+amount));\n    }\n\n    v = v*(hi-lo) + lo;\n\n    return v;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory c(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\n\nHistory y1_curved(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    c  = curve;\n    x1 = in1;\n\n    if(y1_curved<in1)\n    {\n        lo = y1_curved;\n        hi = in1;\n        y1 = lo;\n    }\n    else\n    {\n        lo = in1;\n        hi = y1_curved;\n        y1 = hi;\n    }\n}\n\ny0 = clip(y1+d, lo, hi);\ny1 = y0;\n\n// scale y0 from [lo, hi] to [0, 1]\ny0 = (y0-lo) / (hi-lo);\n\n// curve y0\nif(c>0) { y0 = exp(ln(y0) * (1/(1-c))); }\nelse    { y0 = exp(ln(y0) * (1+c)); }\n\n// scale y0 from [0, 1] to [lo, hi]\ny0 = y0*(hi-lo) + lo;\n\nout1 = y0;\ny1_curved = y0;",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
 									"id" : "obj-5",
 									"maxclass" : "codebox",
 									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 10.0, 40.0, 520.0, 800.0 ]
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 40.0, 530.0, 850.0 ]
 								}
 
 							}
@@ -141,7 +117,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 860.0, 38.0, 21.0 ],
+									"patching_rect" : [ 10.0, 900.0, 38.0, 21.0 ],
 									"text" : "out 1"
 								}
 
@@ -151,13 +127,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-5", 0 ],
 									"source" : [ "obj-1", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-2", 0 ],
-									"source" : [ "obj-5", 1 ]
 								}
 
 							}
@@ -181,11 +150,13 @@
 					"format" : 6,
 					"id" : "obj-16",
 					"maxclass" : "flonum",
+					"maximum" : 1.0,
+					"minimum" : -1.0,
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 330.0, 30.0, 50.0, 21.0 ]
+					"patching_rect" : [ 200.0, 10.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -196,20 +167,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 341.0, 90.0, 56.0, 21.0 ],
+					"patching_rect" : [ 200.0, 40.0, 56.0, 21.0 ],
 					"text" : "curve $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-9",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 350.0, 240.0, 38.0, 21.0 ],
-					"text" : "reset"
 				}
 
 			}
@@ -283,14 +242,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"source" : [ "obj-1", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
+					"midpoints" : [ 139.5, 70.0, 19.5, 70.0 ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -298,6 +251,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
+					"midpoints" : [ 209.5, 70.0, 19.5, 70.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -327,13 +281,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
 					"source" : [ "obj-8", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"source" : [ "obj-9", 0 ]
 				}
 
 			}
