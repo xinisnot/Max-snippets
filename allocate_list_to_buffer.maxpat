@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 812.0, 446.0, 640.0, 480.0 ],
+		"rect" : [ 251.0, 473.0, 816.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,11 +40,35 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-1",
+					"buffername" : "buf_list",
+					"id" : "obj-3",
+					"maxclass" : "waveform~",
+					"numinlets" : 5,
+					"numoutlets" : 6,
+					"outlettype" : [ "float", "float", "float", "float", "list", "" ],
+					"patching_rect" : [ 10.0, 240.0, 256.0, 64.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "float", "bang" ],
+					"patching_rect" : [ 10.0, 210.0, 164.0, 21.0 ],
+					"text" : "buffer~ buf_list @samps 64"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 3,
 					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
+					"outlettype" : [ "float" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -56,7 +80,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 632.0, 87.0, 590.0, 895.0 ],
+						"rect" : [ 844.0, 87.0, 580.0, 432.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -86,16 +110,27 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// state Variables\n\nHistory d(0);\nHistory c(0);\nHistory y1(0);\nHistory x1(0);\nHistory lo(0);\nHistory hi(0);\r\nHistory c1(0);\n\nHistory y1_curved(0);\n\n//============================================================\n// main loop\n\nif(in1!=x1)\n{\n    d  = (in1-y1)/mstosamps(time);\n    c  = (curve > -1 && curve < 1) ? curve : c1;\n    x1 = in1;\r\n    c1 = c;\n\n    if(y1_curved<in1)\n    {\n        lo = y1_curved;\n        hi = in1;\n        y1 = lo;\n    }\n    else\n    {\n        lo = in1;\n        hi = y1_curved;\n        y1 = hi;\n    }\n}\n\n// update y1\ny0 = y1;\ny1 = clip(y1+d, lo, hi);\n\n// scale y0 from [lo, hi] to [0, 1]\ny0 = (y0-lo) / (hi-lo);\n\n// curve y0\nif(c>0) { y0 = exp(ln(y0) * (1/(1-c))); }\nelse    { y0 = exp(ln(y0) * (1+c)); }\n\n// scale y0 from [0, 1] to [lo, hi]\ny0 = y0*(hi-lo) + lo;\n\nout1 = y0;\ny1_curved = y0;",
+									"code" : "//============================================================\n// buffer\n\nBuffer buf_list(\"buf_list\");\n\n//============================================================\n// main process\n\nsize_max = dim(buf_list);\n\nif(in1<size_max)\n{\n    // write values\n    poke(buf_list, in2, in1);\n\n    // if the list is smaller than the buffer,\n    // delete the extra elements of the buffer with 0\n    if((in1+1)==in3 && in3<size_max) {\n        for(itr=in1+1; itr<size_max; itr+=1) {\n            poke(buf_list, 0, itr);\n        }\n    }\n}",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
-									"id" : "obj-5",
+									"id" : "obj-6",
 									"maxclass" : "codebox",
-									"numinlets" : 1,
+									"numinlets" : 3,
+									"numoutlets" : 0,
+									"patching_rect" : [ 10.0, 40.0, 539.0, 370.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 40.0, 530.0, 850.0 ]
+									"patching_rect" : [ 530.0, 7.0, 32.0, 21.0 ],
+									"text" : "in 3"
 								}
 
 							}
@@ -113,26 +148,34 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-4",
+									"id" : "obj-2",
 									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 900.0, 38.0, 21.0 ],
-									"text" : "out 1"
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 270.0, 7.0, 32.0, 21.0 ],
+									"text" : "in 2"
 								}
 
 							}
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-5", 0 ],
+									"destination" : [ "obj-6", 0 ],
 									"source" : [ "obj-1", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-4", 0 ],
+									"destination" : [ "obj-6", 1 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-6", 2 ],
 									"source" : [ "obj-5", 0 ]
 								}
 
@@ -140,47 +183,32 @@
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 80.0, 32.0, 21.0 ],
-					"text" : "gen~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"format" : 6,
-					"id" : "obj-16",
-					"maxclass" : "flonum",
-					"maximum" : 1.0,
-					"minimum" : -1.0,
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 200.0, 10.0, 50.0, 21.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-14",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 200.0, 40.0, 56.0, 21.0 ],
-					"text" : "curve $1"
+					"patching_rect" : [ 10.0, 180.0, 117.0, 21.0 ],
+					"text" : "gen"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-6",
-					"maxclass" : "button",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 108.0, 120.0, 44.0, 21.0 ],
+					"text" : "zl.len"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 10.0, 24.0, 24.0 ]
+					"numoutlets" : 2,
+					"outlettype" : [ "int", "float" ],
+					"patching_rect" : [ 10.0, 150.0, 68.0, 21.0 ],
+					"text" : "unpack i f"
 				}
 
 			}
@@ -190,97 +218,69 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
-					"outlettype" : [ "float" ],
-					"patching_rect" : [ 10.0, 40.0, 110.0, 21.0 ],
-					"text" : "gen @expr noise()"
+					"outlettype" : [ "list" ],
+					"patching_rect" : [ 10.0, 120.0, 68.0, 21.0 ],
+					"text" : "listfunnel"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-12",
-					"maxclass" : "live.scope~",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 10.0, 110.0, 184.0, 68.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 130.0, 40.0, 50.0, 21.0 ],
-					"text" : "time $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"format" : 6,
-					"id" : "obj-8",
-					"maxclass" : "flonum",
+					"contdata" : 1,
+					"id" : "obj-1",
+					"maxclass" : "multislider",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
+					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 130.0, 10.0, 50.0, 21.0 ]
+					"patching_rect" : [ 10.0, 10.0, 350.0, 90.0 ],
+					"size" : 64
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"order" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"midpoints" : [ 139.5, 70.0, 19.5, 70.0 ],
-					"source" : [ "obj-10", 0 ]
+					"destination" : [ "obj-6", 0 ],
+					"midpoints" : [ 19.5, 109.5, 117.5, 109.5 ],
+					"order" : 0,
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"midpoints" : [ 209.5, 70.0, 19.5, 70.0 ],
-					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
-					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-5", 0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"source" : [ "obj-6", 0 ]
+					"destination" : [ "obj-8", 1 ],
+					"source" : [ "obj-5", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"source" : [ "obj-8", 0 ]
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 2 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
