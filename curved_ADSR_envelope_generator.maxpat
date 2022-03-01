@@ -40,30 +40,6 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"attr" : "sensitivity",
-					"id" : "obj-65",
-					"maxclass" : "attrui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 760.0, 280.0, 150.0, 21.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"attr" : "curve_release",
-					"id" : "obj-66",
-					"maxclass" : "attrui",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 760.0, 250.0, 150.0, 21.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"attr" : "cR",
 					"id" : "obj-67",
 					"maxclass" : "attrui",
@@ -783,20 +759,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-55", 0 ],
-					"source" : [ "obj-65", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-55", 0 ],
-					"source" : [ "obj-66", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-55", 0 ],
 					"source" : [ "obj-67", 0 ]
 				}
 
@@ -860,14 +822,6 @@
 
 			}
  ],
-		"parameters" : 		{
-			"parameterbanks" : 			{
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}
