@@ -159,7 +159,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\n\ncurve(x, from, to, amt)\n{\n    return amt>0 ? scaleU2X(exp(ln(x) * (1/(1-amt))), from, to)\n                 : scaleU2X(exp(ln(x) * (1+amt)),     from, to);\n}\n\n\nsmooExp(tgt, samps, cAmt)\n{\n    History d(0);\n    History y(0);\n    History c(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = 0;\n        d    = 1 / samps;\n        c    = cAmt;\n        tgt1 = ret1;\n    }\n\n    ret0 = curve(y, tgt1, tgt, c);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// main loop\n\nout1 = smooExp(in1, mstosamps(time), curve);",
+									"code" : "//============================================================\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\n\ncurve(x, from, to, amt)\n{\n    return amt>0 ? scaleU2X(exp(ln(x) * (1/(1-amt))), from, to)\n                 : scaleU2X(exp(ln(x) * (1+amt)),     from, to);\n}\n\n\nsmooExp(tgt, samps, cAmt)\n{\n    History d(0);\n    History y(0);\n    History c(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = samps!=0 ? 0 : 1;\n        d    = 1/samps;\n        c    = cAmt<1 && cAmt>-1 ? cAmt : cAmt*0.999;\n        tgt1 = ret1;\n    }\n\n    ret0 = curve(y, tgt1, tgt, c);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// main loop\n\nout1 = smooExp(in1, mstosamps(time), curve);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -303,14 +303,6 @@
 
 			}
  ],
-		"parameters" : 		{
-			"parameterbanks" : 			{
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}

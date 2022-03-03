@@ -104,7 +104,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 782.0, 276.0, 562.0, 731.0 ],
+						"rect" : [ 1066.0, 171.0, 562.0, 731.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -134,7 +134,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\n\nsmoo(tgt, samps)\n{\n    History d(0);\n    History y(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = 0;\n        d    = 1 / samps;\n        tgt1 = ret1;\n    }\n\n    ret0 = scaleU2X(y, tgt1, tgt);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\n\n//============================================================\n// main loop\n\nout1 = smoo(in1, mstosamps(time));",
+									"code" : "//============================================================\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\n\nsmoo(tgt, samps)\n{\n    History d(0);\n    History y(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = samps!=0 ? 0 : 1;\n        d    = 1 / samps;\n        tgt1 = ret1;\n    }\n\n    ret0 = scaleU2X(y, tgt1, tgt);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\n\n//============================================================\n// main loop\n\nout1 = smoo(in1, mstosamps(time));",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
