@@ -129,7 +129,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 782.0, 276.0, 689.0, 587.0 ],
+						"rect" : [ 1175.0, 87.0, 587.0, 862.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -159,7 +159,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n\nscaleX2U(x, lo, hi)\n{\n    return (x-lo) / (hi-lo);\n}\n\n\nscaleU2X(x, lo, hi)\n{\n    return x * (hi-lo) + lo;\n}\n\n\ncurve(x, lo, hi, amt)\n{\n    x = scaleX2U(x, lo, hi);\n\n    if(amt>0)\n    {\n        x = exp(ln(x) * (1/(1-amt)));\n    }\n    else\n    {\n        x = exp(ln(x) * (1+amt));\n    }\n\n    return scaleU2X(x, lo, hi);\n}\n\n\nsmooExp(tgt, samps, cAmt)\n{\n    History d(0);\n    History y(0);\n    History c(0);\n    History lo(0);\n    History hi(0);\r\n    History ret(0);\n\n\n    if(change(tgt))\n    {\n        d  = (tgt-y) / samps;\n        c  = (cAmt > -1 && cAmt < 1) ? cAmt : cAmt*0.999;\n\n        if(ret<tgt)\n        {\n            lo = ret;\n            hi = tgt;\n        }\n        else\n        {\n            lo = tgt;\n            hi = ret;\n        }\n    }\n\n    ret = curve(y, lo, hi, c);\n\n    if((sign(d)==1 && ret<tgt) || (sign(d)==-1 && tgt<ret))\n    {\n\t    y += d;\n    }\n\n    return ret;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// main loop\n\nout1 = smooExp(in1, mstosamps(time), curve);\n\n",
+									"code" : "//============================================================\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\n\ncurve(x, from, to, amt)\n{\n    return amt>0 ? scaleU2X(exp(ln(x) * (1/(1-amt))), from, to)\n                 : scaleU2X(exp(ln(x) * (1+amt)),     from, to);\n}\n\n\nsmooExp(tgt, samps, cAmt)\n{\n    History d(0);\n    History y(0);\n    History c(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = 0;\n        d    = 1 / samps;\n        c    = cAmt;\n        tgt1 = ret1;\n    }\n\n    ret0 = curve(y, tgt1, tgt, c);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\nParam curve(0, min=-1, max=1);\n\n//============================================================\n// main loop\n\nout1 = smooExp(in1, mstosamps(time), curve);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -168,7 +168,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 40.0, 590.0, 490.0 ]
+									"patching_rect" : [ 10.0, 40.0, 550.0, 780.0 ]
 								}
 
 							}
@@ -190,7 +190,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 10.0, 540.0, 38.0, 21.0 ],
+									"patching_rect" : [ 10.0, 830.0, 38.0, 21.0 ],
 									"text" : "out 1"
 								}
 
@@ -276,6 +276,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 0 ],
+					"midpoints" : [ 229.5, 105.0, 19.5, 105.0 ],
 					"source" : [ "obj-5", 0 ]
 				}
 
