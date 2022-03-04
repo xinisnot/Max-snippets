@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 60.0, 87.0, 634.0, 215.0 ],
+		"rect" : [ 79.0, 333.0, 634.0, 215.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -84,7 +84,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 480.0, 40.0, 68.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "sustain $1"
 				}
 
@@ -244,7 +243,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 612.0, 180.0, 892.0, 492.0 ],
+						"rect" : [ 721.0, 116.0, 892.0, 492.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -274,7 +273,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\nadsr(gate, attack, decay, release, init, peak, sustain, target)\n{\n    History y(0);\n    History d(0);\n    History dd(0);\n    History ls(0);\n    History tgt0(0);\n    History tgt1(0);\n    History bp(0);\n    History ret1(0);\n\n    if(gate!=0)\n    {\n        if(bp==0)\n        {\n            d    = 1/attack;\n            dd   = 1/decay;\n            ls   = sustain;\n            bp   = 1;\n            tgt1 = init;\n            tgt0 = peak;\n            y    = d!=0 ? 0 : 1;\n            \n        }\n        else if(bp==4)\n        {\n            d    = 1/attack;\n            dd   = 1/decay;\n            ls   = sustain;\n            bp   = 1;\n            tgt1 = ret1;\n            tgt0 = peak;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n    else\n    {\n        if(bp==3)\n        {\n            d    = 1/release;\n            bp   = 4;\n            tgt1 = ls;\n            tgt0 = target;\n            y    = d!=0 ? 0 : 1;\n        }\n        else if(bp==1 || bp==2)\n        {\n            d    = 1/release;\n            bp   = 4;\n            tgt1 = ret1;\n            tgt0 = target;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n\n    ret0 = scaleU2X(y, tgt1, tgt0);\n    ret1 = ret0;\n\n    if(bp==1)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            d    = dd;\n            bp   = 2;\n            tgt1 = tgt0;\n            tgt0 = ls;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n    else if(bp==2)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            bp = 3;\n        }\n    }\n    else if(bp==4)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            bp   = 0;\n            tgt1 = tgt0;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam attack(500, min=0);\nParam decay(500, min=0);\nParam release(500, min=0);\nParam init(0);\nParam peak(1);\nParam sustain(0.5);\nParam target(0);\n\n//============================================================\n// main loop\n\nout1 = adsr(in1, mstosamps(attack), mstosamps(decay), mstosamps(release), init, peak, sustain, target);",
+									"code" : "//============================================================\n// functions\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\nadsr(gate, attack, decay, release, init, peak, sustain, target)\n{\n    History y(0);\n    History d(0);\n    History dd(0);\n    History ls(0);\n    History tgt0(0);\n    History tgt1(0);\n    History bp(0);\n    History ret1(0);\n\n    if(gate!=0)\n    {\n        if(bp==0)\n        {\n            d    = 1/attack;\n            dd   = 1/decay;\n            ls   = sustain;\n            bp   = 1;\n            tgt1 = init;\n            tgt0 = peak;\n            y    = d!=0 ? 0 : 1;\n            \n        }\n        else if(bp==4)\n        {\n            d    = 1/attack;\n            dd   = 1/decay;\n            ls   = sustain;\n            bp   = 1;\n            tgt1 = ret1;\n            tgt0 = peak;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n    else\n    {\n        if(bp==3)\n        {\n            d    = 1/release;\n            bp   = 4;\n            tgt1 = ls;\n            tgt0 = target;\n            y    = d!=0 ? 0 : 1;\n        }\n        else if(bp==1 || bp==2)\n        {\n            d    = 1/release;\n            bp   = 4;\n            tgt1 = ret1;\n            tgt0 = target;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n\n    ret0 = scaleU2X(y, tgt1, tgt0);\n    ret1 = ret0;\n\n    if(bp==1)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            d    = dd;\n            bp   = 2;\n            tgt1 = tgt0;\n            tgt0 = ls;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n    else if(bp==2)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            bp   = 3;\r\n            tgt1 = tgt0;\r\n            y    = 0;\n        }\n    }\n    else if(bp==4)\n    {\n        y += d;\n\n        if(y>=1)\n        {\n            bp   = 0;\n            tgt1 = tgt0;\n            y    = d!=0 ? 0 : 1;\n        }\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam attack(500, min=0);\nParam decay(500, min=0);\nParam release(500, min=0);\nParam init(0);\nParam peak(1);\nParam sustain(0.5);\nParam target(0);\n\n//============================================================\n// main loop\n\nout1 = adsr(in1, mstosamps(attack), mstosamps(decay), mstosamps(release), init, peak, sustain, target);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -465,14 +464,6 @@
 
 			}
  ],
-		"parameters" : 		{
-			"parameterbanks" : 			{
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
 		"dependency_cache" : [  ],
 		"autosave" : 0,
 		"styles" : [ 			{
