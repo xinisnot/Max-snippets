@@ -134,7 +134,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nallocList(buf, idx, x, len)\n{\n    if(idx<dim(buf))\n    {\n        poke(buf, x, idx);\r\n\n        // if the list is smaller than the buffer,\n        // delete the extra elements of the buffer with 0\n        if(len<dim(buf) && (idx+1)==len)\n        {\n            for(itr=idx+1; itr<dim(buf); itr+=1)\n            {\n                poke(buf, 0, itr);\n            }\n        }\n    }\r\n\r\n    return 0;\n}\n\n//============================================================\n// buffer\n\nBuffer buf(\"\");\n\n//============================================================\n// main process\n\nallocList(buf, in1, in2, in3);",
+									"code" : "//============================================================\r\n// Allocator for lists to buffers.\r\n\r\n//============================================================\n// functions\n\nallocList(buf, idx, x, len)\n{\n    if(idx<dim(buf))\n    {\n        poke(buf, x, idx);\r\n\n        // if the list is smaller than the buffer,\n        // delete the extra elements of the buffer with 0\n        if(len<dim(buf) && (idx+1)==len)\n        {\n            for(itr=idx+1; itr<dim(buf); itr+=1)\n            {\n                poke(buf, 0, itr);\n            }\n        }\n    }\r\n\r\n    return 0;\n}\n\n//============================================================\n// buffer\n\nBuffer buf(\"\");\n\n//============================================================\n// main process\n\nallocList(buf, in1, in2, in3);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
