@@ -47,7 +47,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 460.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 100.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -60,7 +60,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 400.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 40.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -73,7 +73,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 340.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 460.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -86,7 +86,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 280.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 400.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -99,7 +99,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 220.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 340.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -112,7 +112,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 160.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 280.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -125,7 +125,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 100.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 220.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -138,7 +138,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 40.0, 70.0, 50.0, 21.0 ]
+					"patching_rect" : [ 160.0, 70.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -149,8 +149,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 460.0, 100.0, 44.0, 21.0 ],
-					"text" : "p4y $1"
+					"patching_rect" : [ 100.0, 100.0, 44.0, 21.0 ],
+					"text" : "p0y $1"
 				}
 
 			}
@@ -161,8 +161,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 400.0, 100.0, 44.0, 21.0 ],
-					"text" : "p4x $1"
+					"patching_rect" : [ 40.0, 100.0, 44.0, 21.0 ],
+					"text" : "p0x $1"
 				}
 
 			}
@@ -173,7 +173,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 340.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 460.0, 100.0, 44.0, 21.0 ],
 					"text" : "p3y $1"
 				}
 
@@ -185,7 +185,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 280.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 400.0, 100.0, 44.0, 21.0 ],
 					"text" : "p3x $1"
 				}
 
@@ -197,7 +197,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 220.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 340.0, 100.0, 44.0, 21.0 ],
 					"text" : "p2y $1"
 				}
 
@@ -209,7 +209,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 160.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 280.0, 100.0, 44.0, 21.0 ],
 					"text" : "p2x $1"
 				}
 
@@ -221,7 +221,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 100.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 220.0, 100.0, 44.0, 21.0 ],
 					"text" : "p1y $1"
 				}
 
@@ -233,7 +233,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 40.0, 100.0, 44.0, 21.0 ],
+					"patching_rect" : [ 160.0, 100.0, 44.0, 21.0 ],
 					"text" : "p1x $1"
 				}
 
@@ -321,7 +321,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nbezier(unipolar, x1, y1, x2, y2, x3, y3, x4, y4)\n{\n    item = 1-unipolar;\n    pow  = item * item;\n    pPow = unipolar * unipolar;\n\n    x = item*pow*x1 + 3*pow*unipolar*x2 + 3*item*pPow*x3 + pPow*unipolar*x4;\n    y = item*pow*y1 + 3*pow*unipolar*y2 + 3*item*pPow*y3 + pPow*unipolar*y4;\n\n    return x, y;\n}\n\n//============================================================\n// parameters\n\nParam p1x(0);\nParam p1y(0);\nParam p2x(0);\nParam p2y(0);\nParam p3x(0);\nParam p3y(0);\nParam p4x(1);\nParam p4y(1);\n\n//============================================================\n// main loop\n\nout1, out2 = bezier(in1, p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y);",
+									"code" : "//============================================================\r\n// Generate 3rd-order Bezier Curve\r\n\r\n//============================================================\n// functions\n\nbezier(unipolar, x0, y0, x1, y1, x2, y2, x3, y3)\n{\n    item = 1-unipolar;\n    pow  = item * item;\n    pPow = unipolar * unipolar;\n\n    x = item*pow*x0 + 3*pow*unipolar*x1 + 3*item*pPow*x2 + pPow*unipolar*x3;\n    y = item*pow*y0 + 3*pow*unipolar*y1 + 3*item*pPow*y2 + pPow*unipolar*y3;\n\n    return x, y;\n}\n\n//============================================================\n// parameters\n\r\nParam p0x(0);\nParam p0y(0);\nParam p1x(0);\nParam p1y(0);\nParam p2x(0);\nParam p2y(0);\nParam p3x(1);\nParam p3y(1);\n\n//============================================================\n// main loop\n\nout1, out2 = bezier(in1, p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -410,7 +410,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 349.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 469.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-10", 0 ]
 				}
 
@@ -418,7 +418,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 289.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 409.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -426,7 +426,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 469.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 109.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-12", 0 ]
 				}
 
@@ -434,7 +434,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 409.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 49.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -513,7 +513,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 49.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 169.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -521,7 +521,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 109.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 229.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 
@@ -529,7 +529,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 229.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 349.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -537,7 +537,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
-					"midpoints" : [ 169.5, 130.0, 19.5, 130.0 ],
+					"midpoints" : [ 289.5, 130.0, 19.5, 130.0 ],
 					"source" : [ "obj-9", 0 ]
 				}
 

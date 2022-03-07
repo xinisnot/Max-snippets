@@ -102,7 +102,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nratio2cent(x)\n{\n    History x1(0);\n    History y(0);\n\n    if(x!=x1)\n    {\n        y =1200 * log2(x);\n    }\n\n    x1 = x;\n    return y;\n}\n\n//============================================================\n// main loop\n\nout1 = ratio2cent(in1);",
+									"code" : "//============================================================\r\n// Converts frequency ratios to cent values.\r\n// https://en.wikipedia.org/wiki/Cent_(music)\r\n\r\n//============================================================\n// functions\n\nratio2cent(x)\n{\n    History x1(0);\n    History y(0);\n\n    if(x!=x1)\n    {\n        y =1200 * log2(x);\n    }\n\n    x1 = x;\n    return y;\n}\n\n//============================================================\n// main loop\n\nout1 = ratio2cent(in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

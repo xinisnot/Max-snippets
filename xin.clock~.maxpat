@@ -176,7 +176,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nclock(freq)\n{\n    History x1(0);\n\n    p  = phasor(freq);\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y, p;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = clock(in1);",
+									"code" : "//============================================================\r\n// Generate clock.\r\n\r\n//============================================================\n// functions\n\nclock(freq)\n{\n    History x1(0);\n\n    p  = phasor(freq);\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y, p;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = clock(in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

@@ -66,7 +66,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 154.0, 533.0, 640.0, 480.0 ],
+						"rect" : [ 639.0, 403.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -107,7 +107,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nms2st(m, s)\n{\n    return m+s, m-s;\n}\n\nst2ms(l, r)\n{\n    return (l+r)*0.5, (l-r)*0.5;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = ms2st(in1, in2);",
+									"code" : "//============================================================\n// Convert mid-side signal to stereo signal.\n\r\n//============================================================\nms2st(m, s)\n{\n    return m+s, m-s;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = ms2st(in1, in2);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -349,7 +349,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nms2st(m, s)\n{\n    return m+s, m-s;\n}\n\nst2ms(l, r)\n{\n    return (l+r)*0.5, (l-r)*0.5;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = st2ms(in1, in2);",
+									"code" : "//============================================================\r\n// Convert stereo signal to mid-side signal.\r\n\r\n//============================================================\n// functions\n\nst2ms(l, r)\n{\n    return (l+r)*0.5, (l-r)*0.5;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = st2ms(in1, in2);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

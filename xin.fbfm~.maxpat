@@ -200,7 +200,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nfbfm(buf, phase, fb)\n{\n    History y1(0);\n\n    y   = nearest(buf, phase + y1*fb);\n    y1  = y;\n\n    return y;\n}\n\n//============================================================\n// buffers\n\nBuffer buf(\"\");\n\n//============================================================\n// parameters\n\nParam feedback(0, min=0, max=1);\n\n//============================================================\n// main loop\n\nout1 = fbfm(buf, in1, feedback);",
+									"code" : "//============================================================\r\n// Feedback FM oscillator.\r\n\r\n//============================================================\n// functions\n\nfbfm(buf, phase, fb)\n{\n    History y1(0);\n\n    y   = nearest(buf, phase + y1*fb);\n    y1  = y;\n\n    return y;\n}\n\n//============================================================\n// buffers\n\nBuffer buf(\"\");\n\n//============================================================\n// parameters\n\nParam feedback(0, min=0, max=1);\n\n//============================================================\n// main loop\n\nout1 = fbfm(buf, in1, feedback);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

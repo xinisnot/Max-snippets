@@ -136,7 +136,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 490.0, 90.0, 62.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "fb_l2r $1"
 				}
 
@@ -162,7 +161,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 420.0, 90.0, 62.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "fb_r2l $1"
 				}
 
@@ -238,7 +236,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 180.0, 90.0, 80.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "deltime_r $1"
 				}
 
@@ -376,7 +373,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nst2ms(l, r)\n{\n    return (l+r)*0.5, (l-r)*0.5;\n}\n\nms2st(m, s)\n{\n    return m+s, m-s;\n}\n\nhaas(input, time0, time1, fb0, fb1, cfb0, cfb1, ampM, ampS)\n{\n    Delay del0(SAMPLERATE, feedback=1);\n    Delay del1(SAMPLERATE, feedback=1);\n\n    sig0 = del0.read(time0);\n    sig1 = del1.read(time1);\n\n    m, s = st2ms(sig0, sig1);\n\n    m = ampM * input;\n    s = ampS * s;\n\n    del0.write(input + sig0 * fb0 + sig1 * cfb0);\n    del1.write(input + sig1 * fb1 + sig0 * cfb1);\n\n    return ms2st(m, s);\n}\n\n//============================================================\n// parameters\n\nParam deltime_l(0, min=0, max=1000);\nParam deltime_r(0, min=0, max=1000);\nParam fb_l(0, min=0, max=1);\nParam fb_r(0, min=0, max=1);\nParam fb_r2l(0, min=0, max=1);\nParam fb_l2r(0, min=0, max=1);\nParam mid(1, min=0, max=1);\nParam side(1, min=0, max=1);\n\n//============================================================\n// main loop\n\nout1, out2 = haas(in1, mstosamps(deltime_l), mstosamps(deltime_r), fb_l, fb_r, fb_r2l, fb_l2r, mid, side);",
+									"code" : "//============================================================\r\n// Stereo spread using the Haas effect.\r\n\r\n//============================================================\n// functions\n\nst2ms(l, r)\n{\n    return (l+r)*0.5, (l-r)*0.5;\n}\n\nms2st(m, s)\n{\n    return m+s, m-s;\n}\n\nhaas(input, time0, time1, fb0, fb1, cfb0, cfb1, ampM, ampS)\n{\n    Delay del0(SAMPLERATE, feedback=1);\n    Delay del1(SAMPLERATE, feedback=1);\n\n    sig0 = del0.read(time0);\n    sig1 = del1.read(time1);\n\n    m, s = st2ms(sig0, sig1);\n\n    m = ampM * input;\n    s = ampS * s;\n\n    del0.write(input + sig0 * fb0 + sig1 * cfb0);\n    del1.write(input + sig1 * fb1 + sig0 * cfb1);\n\n    return ms2st(m, s);\n}\n\n//============================================================\n// parameters\n\nParam deltime_l(0, min=0, max=1000);\nParam deltime_r(0, min=0, max=1000);\nParam fb_l(0, min=0, max=1);\nParam fb_r(0, min=0, max=1);\nParam fb_r2l(0, min=0, max=1);\nParam fb_l2r(0, min=0, max=1);\nParam mid(1, min=0, max=1);\nParam side(1, min=0, max=1);\n\n//============================================================\n// main loop\n\nout1, out2 = haas(in1, mstosamps(deltime_l), mstosamps(deltime_r), fb_l, fb_r, fb_r2l, fb_l2r, mid, side);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

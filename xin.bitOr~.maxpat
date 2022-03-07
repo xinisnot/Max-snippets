@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 803.0, 180.0, 376.0, 321.0 ],
+		"rect" : [ 296.0, 241.0, 316.0, 153.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,9 +40,51 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-1",
-					"maxclass" : "newobj",
+					"id" : "obj-11",
+					"maxclass" : "number",
+					"maximum" : 64,
+					"minimum" : 2,
 					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 130.0, 10.0, 50.0, 21.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 130.0, 40.0, 50.0, 21.0 ],
+					"text" : "bits $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontface" : 0,
+					"fontname" : "Ricty",
+					"fontsize" : 12.0,
+					"id" : "obj-7",
+					"maxclass" : "number~",
+					"mode" : 2,
+					"numinlets" : 2,
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "float" ],
+					"patching_rect" : [ 10.0, 120.0, 56.0, 21.0 ],
+					"sig" : 0.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
 					"patcher" : 					{
@@ -56,7 +98,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 959.0, 180.0, 640.0, 480.0 ],
+						"rect" : [ 296.0, 241.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -86,16 +128,16 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\r\n// Smooth value changes (similar to line~).\r\n\r\n//============================================================\n// functions\r\n\nscaleU2X(x, from, to)\n{\n    return x * (to-from) + from;\n}\n\nsmoo(tgt, samps)\n{\n    History d(0);\n    History y(0);\n    History tgt1(0);\n    History ret1(0);\n\n    if(change(tgt))\n    {\n        y    = samps!=0 ? 0 : 1;\n        d    = 1 / samps;\n        tgt1 = ret1;\n    }\n\n    ret0 = scaleU2X(y, tgt1, tgt);\n    ret1 = ret0;\n\n    if(y<1)\n    {\n        y += d;\n    }\n\n    return ret0;\n}\n\n//============================================================\n// parameters\n\nParam time(1000, min=0);\n\n//============================================================\n// main loop\n\nout1 = smoo(in1, mstosamps(time));",
+									"code" : "//============================================================\n// Bitwise OR.\n// Supports up to 64-bit integers.\n\n//============================================================\n// functions\n\ndec2bin(buf, dec, bits)\n{\n    v = dec;\n\n    for(itr=0; itr<bits; itr+=1)\n    {\n        poke(buf, v%2, itr);\n        v = int(v/2);\n    }\n\n    return 0;\n}\n\nbin2dec(buf, bits)\n{\n    v = 0;\n    \n    for(itr=0; itr<bits; itr+=1)\n    {\n        v += peek(buf, itr) * pow(2, itr);\n    }\n\n    return v;\n}\n\nbitOr(dec1, dec2, bits)\n{\n    Data bin(64);\n    Data bin1(64);\n    Data bin2(64);\n\n    dec2bin(bin1, dec1, bits);\n    dec2bin(bin2, dec2, bits);\n\n    for(itr=0; itr<bits; itr+=1)\n    {\n        poke(bin, peek(bin1, itr) || peek(bin2, itr), itr);\n    }\n\n    return bin2dec(bin, bits);\n}\n\n//============================================================\n// parameters\n\nParam bits(8, min=2, max=64);\n\n//============================================================\n// main loop\n\nout1 = bitOr(in1, in2, int(bits));",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
 									"id" : "obj-5",
 									"maxclass" : "codebox",
-									"numinlets" : 1,
+									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 10.0, 40.0, 620.0, 400.0 ]
+									"patching_rect" : [ 10.0, 40.0, 609.0, 400.0 ]
 								}
 
 							}
@@ -108,6 +150,18 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 10.0, 10.0, 32.0, 21.0 ],
 									"text" : "in 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 600.0, 10.0, 32.0, 21.0 ],
+									"text" : "in 2"
 								}
 
 							}
@@ -132,6 +186,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-5", 1 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-4", 0 ],
 									"source" : [ "obj-5", 0 ]
 								}
@@ -140,125 +201,69 @@
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 120.0, 32.0, 21.0 ],
+					"patching_rect" : [ 10.0, 90.0, 79.0, 21.0 ],
 					"text" : "gen~"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"format" : 6,
+					"id" : "obj-5",
+					"maxclass" : "number",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 70.0, 10.0, 50.0, 21.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-3",
-					"maxclass" : "flonum",
+					"maxclass" : "number",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 70.0, 50.0, 21.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-6",
-					"maxclass" : "button",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 10.0, 24.0, 24.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-2",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "float" ],
-					"patching_rect" : [ 10.0, 40.0, 110.0, 21.0 ],
-					"text" : "gen @expr noise()"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-12",
-					"maxclass" : "live.scope~",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 10.0, 150.0, 184.0, 68.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 130.0, 40.0, 50.0, 21.0 ],
-					"text" : "time $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"format" : 6,
-					"id" : "obj-8",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 130.0, 10.0, 50.0, 21.0 ]
+					"patching_rect" : [ 10.0, 10.0, 50.0, 21.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
-					"source" : [ "obj-1", 0 ]
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"midpoints" : [ 139.5, 105.0, 19.5, 105.0 ],
-					"source" : [ "obj-10", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"source" : [ "obj-2", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-6", 0 ],
 					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
+					"destination" : [ "obj-6", 1 ],
+					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"source" : [ "obj-8", 0 ]
+					"destination" : [ "obj-6", 0 ],
+					"midpoints" : [ 139.5, 75.0, 19.5, 75.0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}

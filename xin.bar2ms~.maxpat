@@ -175,7 +175,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nbar2ms(tempo, unit, beat)\n{\n    return (1/floor(unit) * floor(beat)) / tempo * 240000;\n}\n\n//============================================================\n// parameters\n\nParam unit(4, min=1);\nParam beat(4, min=1);\nParam tempo(120, min=1);\n\n//============================================================\n// main loop\n\nout1 = bar2ms(tempo, unit, beat);",
+									"code" : "//============================================================\r\n// Returns the time of one measure in milliseconds.\r\n\r\n//============================================================\n// functions\n\nbar2ms(tempo, unit, beat)\n{\n    return (1/floor(unit) * floor(beat)) / tempo * 240000;\n}\n\n//============================================================\n// parameters\n\nParam unit(4, min=1);\nParam beat(4, min=1);\nParam tempo(120, min=1);\n\n//============================================================\n// main loop\n\nout1 = bar2ms(tempo, unit, beat);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

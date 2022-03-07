@@ -338,7 +338,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nsvf(input, freq, q)\n{\n    History d1(0);\n    History d2(0);\n    \n    q1 = 1/(q*100);\n    f1 = cycle(freq/samplerate - 0.25, index=\"phase\");\n    \n    L = d2 + f1 * d1;\n    H = input - L - q1 * d1;\n    B = f1 * H + d1;\n    N = H + L;\n    \n    d1, d2 = B, L;\n    \n    return L, H, B, N;\n}\n\n//============================================================\n// parameters\n\nParam q(0.005, min=0.01, max=1);\n\n//============================================================\n// main loop\n\nout1, out2, out3, out4 = svf(in1, in2, q);",
+									"code" : "//============================================================\r\n// State variable filter.\r\n\r\n//============================================================\n// functions\n\nsvf(input, freq, q)\n{\n    History d1(0);\n    History d2(0);\n    \n    q1 = 1/(q*100);\n    f1 = cycle(freq/samplerate - 0.25, index=\"phase\");\n    \n    L = d2 + f1 * d1;\n    H = input - L - q1 * d1;\n    B = f1 * H + d1;\n    N = H + L;\n    \n    d1, d2 = B, L;\n    \n    return L, H, B, N;\n}\n\n//============================================================\n// parameters\n\nParam q(0.005, min=0.01, max=1);\n\n//============================================================\n// main loop\n\nout1, out2, out3, out4 = svf(in1, in2, q);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

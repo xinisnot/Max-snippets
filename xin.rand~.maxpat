@@ -132,7 +132,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nrand(phase)\n{\n    History x(0);\n    History x1(0);\n\n    trigger = phasor2clock(phase);\n    random  = noise();\n\n    if(trigger) \n    {\n        x1 = x;\n        x  = random;\n    }\n\n    return mix(x1, x, phase), x1, random;\n}\n\nphasor2clock(phase)\n{\n    History prev(0);\n\n    cond = phase<=0.5;\n    ret  = cond-prev == 1;\n    prev = cond;\n\n    return ret;\n}\n\n//============================================================\n// functions\n\nout1, out2, out3 = rand(in1);",
+									"code" : "//============================================================\r\n// Generate random numbers\r\n\r\n//============================================================\n// functions\n\nrand(phase)\n{\n    History x(0);\n    History x1(0);\n\n    trigger = phasor2clock(phase);\n    random  = noise();\n\n    if(trigger) \n    {\n        x1 = x;\n        x  = random;\n    }\n\n    return mix(x1, x, phase), x1, random;\n}\n\nphasor2clock(phase)\n{\n    History prev(0);\n\n    cond = phase<=0.5;\n    ret  = cond-prev == 1;\n    prev = cond;\n\n    return ret;\n}\n\n//============================================================\n// functions\n\nout1, out2, out3 = rand(in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -212,8 +212,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 10.0, 10.0, 62.0, 21.0 ],
-					"text" : "phasor~ 1"
+					"patching_rect" : [ 10.0, 10.0, 68.0, 21.0 ],
+					"text" : "phasor~ 4n"
 				}
 
 			}

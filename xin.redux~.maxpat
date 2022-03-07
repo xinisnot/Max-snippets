@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 572.0, 159.0, 324.0, 283.0 ],
+		"rect" : [ 677.0, 115.0, 324.0, 283.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -145,7 +145,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nscaleB2U(v)\n{\n    return (v+1) * 0.5;\n}\n\nscaleU2B(v)\n{\n    return v*2 - 1;\n}\n\nredux(input, res)\n{\n    return scaleU2B(floor(scaleB2U(input)*res)/(res-1));\n}\n\n//============================================================\n// parameters\n\nParam res(16, min=2);\n\n//============================================================\n// main loop\n\nout1 = redux(in1, int(res));",
+									"code" : "//============================================================\r\n// Bit reducer.\r\n\r\n//============================================================\n// functions\n\nscaleB2U(v)\n{\n    return (v+1) * 0.5;\n}\n\nscaleU2B(v)\n{\n    return v*2 - 1;\n}\n\nredux(input, res)\n{\n    return scaleU2B(floor(scaleB2U(input)*res)/(res-1));\n}\n\n//============================================================\n// parameters\n\nParam res(16, min=2);\n\n//============================================================\n// main loop\n\nout1 = redux(in1, int(res));",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

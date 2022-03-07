@@ -45,7 +45,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 100.0, 120.0, 230.0, 19.0 ],
-					"presentation_linecount" : 2,
 					"text" : "stores [0, 2, 4, 6, 8, 0, 2, 4, 6, 8]"
 				}
 
@@ -326,7 +325,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nindexOf(buf, x)\n{\n    itr = 0;\n    \n    while(itr!=dim(buf))\n    {\n        if(peek(buf, itr)==x)\n        {\n            break;\n        }\n\n        itr += 1;\n    }\n\n    return itr;\n}\n\n//============================================================\n// buffer\n\nBuffer buf(\"\");\n\n//============================================================\n// main process\n\nout1 = indexOf(buf, in1);",
+									"code" : "//============================================================\r\n// Return the first index of the buffer sample whose element is x.\n// If x does not exist, return the size of the buffer.\r\n// (similar to indexOf in JavaScript or std::find in C++)\r\n\r\n//============================================================\n// functions\n\nindexOf(buf, x)\n{\n    itr = 0;\n    \n    while(itr!=dim(buf))\n    {\n        if(peek(buf, itr)==x)\n        {\n            break;\n        }\n\n        itr += 1;\n    }\n\n    return itr;\n}\n\n//============================================================\n// buffer\n\nBuffer buf(\"\");\n\n//============================================================\n// main process\n\nout1 = indexOf(buf, in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

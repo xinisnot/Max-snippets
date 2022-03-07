@@ -172,7 +172,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nchaosLogistic(phase, a)\n{\n    History x0(0.5);\n    History x1(0);\n    History prevPhase(1);\n\n    trigger = (phase - prevPhase) <= 0;\n\n    if(trigger)\n    {\n        x1 = x0;\n        x0 = a * x0 * (1-x0);\n    }\n\n    prevPhase = phase;\n\n    return mix(x1, x0, phase), x1, x0;\n}\r\n\n//============================================================\n// parameters\n\nParam a(3.99, min=0, max=4);\n\n//============================================================\n// main loop\n\nout1, out2, out3 = chaosLogistic(in1, a);",
+									"code" : "//============================================================\r\n// Generate logistic map.\r\n\r\n//============================================================\n// functions\n\nchaosLogistic(phase, a)\n{\n    History x0(0.5);\n    History x1(0);\n    History prevPhase(1);\n\n    trigger = (phase - prevPhase) <= 0;\n\n    if(trigger)\n    {\n        x1 = x0;\n        x0 = a * x0 * (1-x0);\n    }\n\n    prevPhase = phase;\n\n    return mix(x1, x0, phase), x1, x0;\n}\r\n\n//============================================================\n// parameters\n\nParam a(3.99, min=0, max=4);\n\n//============================================================\n// main loop\n\nout1, out2, out3 = chaosLogistic(in1, a);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

@@ -194,7 +194,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\nonepoleLP(input, freq)\n{\n    History y0(0);\n\n    a      = cycle(freq/samplerate - 0.25, index=\"phase\");\n    ret    = mix(y0, input, a);\n    y0     = ret;\n\n    return ret;\n}\n\nonepoleHP(input, freq)\n{\n    return input - onepoleLP(input, freq);\n}\n\n//============================================================\n// main loop\n\nout1 = onepoleLP(in1, in2);\nout2 = onepoleHP(in1, in2);",
+									"code" : "//============================================================\r\n// One-pole filter.\r\n\r\n//============================================================\n// functions\n\nonepoleLP(input, freq)\n{\n    History y0(0);\n\n    a      = cycle(freq/samplerate - 0.25, index=\"phase\");\n    ret    = mix(y0, input, a);\n    y0     = ret;\n\n    return ret;\n}\n\nonepoleHP(input, freq)\n{\n    return input - onepoleLP(input, freq);\n}\n\n//============================================================\n// main loop\n\nout1 = onepoleLP(in1, in2);\nout2 = onepoleHP(in1, in2);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

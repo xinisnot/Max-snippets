@@ -146,7 +146,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 360.0, 40.0, 50.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "tup0 $1"
 				}
 
@@ -159,7 +158,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 290.0, 40.0, 50.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "dot0 $1"
 				}
 
@@ -172,7 +170,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 220.0, 40.0, 56.0, 21.0 ],
-					"presentation_linecount" : 2,
 					"text" : "note0 $1"
 				}
 
@@ -277,7 +274,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// functions\n\ngetNoteCoeff(note)\n{\n    return 1/note;\n}\n\ngetDotCoeff(dot)\n{\n    v = floor(dot) * (dot>=0);\n    v = pow(2, v);\n    v = (v-1)/v;\n\n    return v+1;\n}\n\ngetTupCoeff(tup)\n{\n    v  = floor(tup) * (tup>=0);\n    v2 = v;\n    v3 = 0;\n\n    while(v2>=2)\n    {\n        v3 += 1;\n        v2 /= 2;\n    }\n\n    ret = pow(2, v3)/v;\n\n    if(tup<=0)\n    {\n        ret = 1;\n    }\n\n    return ret;\n}\n\nnotesRatio(note, dot, tup, note0, dot0, tup0)\n{\n    n0 = getNoteCoeff(note0) * getDotCoeff(dot0) * getTupCoeff(tup0);\n    n  = getNoteCoeff(note)  * getDotCoeff(dot)  * getTupCoeff(tup);\n\n    return n/n0;\n}\n\n//============================================================\n// parameters\n\nParam note(4, min=1);\nParam dot(0, min=0);\nParam tup(0, min=0);\nParam note0(4, min=1);\nParam dot0(0, min=0);\nParam tup0(0, min=0);\n\n//============================================================\n// main loop\n\nout1 = notesRatio(note, dot, tup, note0, dot0, tup0);",
+									"code" : "//============================================================\r\n// Calculate the ratio of note values.\r\n\r\n//============================================================\n// functions\n\ngetNoteCoeff(note)\n{\n    return 1/note;\n}\n\ngetDotCoeff(dot)\n{\n    v = floor(dot) * (dot>=0);\n    v = pow(2, v);\n    v = (v-1)/v;\n\n    return v+1;\n}\n\ngetTupCoeff(tup)\n{\n    v  = floor(tup) * (tup>=0);\n    v2 = v;\n    v3 = 0;\n\n    while(v2>=2)\n    {\n        v3 += 1;\n        v2 /= 2;\n    }\n\n    ret = pow(2, v3)/v;\n\n    if(tup<=0)\n    {\n        ret = 1;\n    }\n\n    return ret;\n}\n\nnotesRatio(note, dot, tup, note0, dot0, tup0)\n{\n    n0 = getNoteCoeff(note0) * getDotCoeff(dot0) * getTupCoeff(tup0);\n    n  = getNoteCoeff(note)  * getDotCoeff(dot)  * getTupCoeff(tup);\n\n    return n/n0;\n}\n\n//============================================================\n// parameters\n\nParam note(4, min=1);\nParam dot(0, min=0);\nParam tup(0, min=0);\nParam note0(4, min=1);\nParam dot0(0, min=0);\nParam tup0(0, min=0);\n\n//============================================================\n// main loop\n\nout1 = notesRatio(note, dot, tup, note0, dot0, tup0);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
