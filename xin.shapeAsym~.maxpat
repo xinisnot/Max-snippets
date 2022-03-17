@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 431.0, 310.0, 348.0, 303.0 ],
+		"rect" : [ 968.0, 290.0, 318.0, 396.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,24 +40,75 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-66",
-					"maxclass" : "ezdac~",
-					"numinlets" : 2,
-					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 250.0, 45.0, 45.0 ]
+					"format" : 6,
+					"id" : "obj-12",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 110.0, 80.0, 50.0, 21.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-65",
+					"format" : 6,
+					"id" : "obj-11",
+					"maxclass" : "flonum",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 40.0, 80.0, 50.0, 21.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 110.0, 110.0, 56.0, 21.0 ],
+					"text" : "ratio $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 40.0, 110.0, 50.0, 21.0 ],
+					"text" : "gain $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "ezdac~",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 10.0, 340.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"channels" : 1,
+					"id" : "obj-4",
 					"lastchannelcount" : 0,
 					"maxclass" : "live.gain~",
-					"numinlets" : 2,
-					"numoutlets" : 5,
-					"outlettype" : [ "signal", "signal", "", "float", "list" ],
+					"numinlets" : 1,
+					"numoutlets" : 4,
+					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 10.0, 90.0, 41.0, 136.0 ],
+					"patching_rect" : [ 10.0, 180.0, 30.0, 140.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_initial" : [ -24.0 ],
@@ -86,7 +137,7 @@
 								"absolutepath" : "jongly.aif",
 								"filename" : "jongly.aif",
 								"filekind" : "audiofile",
-								"id" : "u077007444",
+								"id" : "u379008188",
 								"loop" : 1,
 								"content_state" : 								{
 									"loop" : 1
@@ -98,7 +149,7 @@
 ,
 					"followglobaltempo" : 0,
 					"formantcorrection" : 0,
-					"id" : "obj-55",
+					"id" : "obj-3",
 					"maxclass" : "playlist~",
 					"mode" : "basic",
 					"numinlets" : 1,
@@ -116,11 +167,11 @@
 			}
 , 			{
 				"box" : 				{
-					"id" : "obj-50",
+					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 4,
-					"outlettype" : [ "signal", "signal", "signal", "signal" ],
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -132,7 +183,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 296.0, 241.0, 640.0, 480.0 ],
+						"rect" : [ 59.0, 104.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -162,49 +213,16 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"id" : "obj-8",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 590.0, 450.0, 38.0, 21.0 ],
-									"text" : "out 4"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-7",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 396.666666666666686, 450.0, 38.0, 21.0 ],
-									"text" : "out 3"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-6",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 203.333333333333343, 450.0, 38.0, 21.0 ],
-									"text" : "out 2"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"code" : "//============================================================\n// Schroeder reverberator (JCREV).\n// https://ccrma.stanford.edu/~jos/pasp/Schroeder_Reverberators.html\n\n//============================================================\n// functions\n\nallpassFilter(x, n, g)\n{\n    Delay del(SAMPLERATE);\n\n    y1 = x - del.read(n) * g;\n    y  = del.read(n) + y1 * g;\n\n    del.write(y1);\n\n    return y;\n}\n\nfeedbackCombFilter(x, n, b, a)\n{\n    Delay del(SAMPLERATE);\n\n    y = x * b  - a * del.read(n);\n    del.write(y);\n\n    return y;\n}\n\ndiffuser(x)\n{\n    apf1 = allpassFilter(x,    mstosamps(13.88), 0.7);\n    apf2 = allpassFilter(apf1, mstosamps(4.52),  0.7);\n    apf3 = allpassFilter(apf2, mstosamps(1.48),  0.7);\n\n    return apf3;\n}\n\nrefrector(x)\n{\n    fbcf1 = feedbackCombFilter(x, mstosamps(67.48), 1, 0.773);\n    fbcf2 = feedbackCombFilter(x, mstosamps(82.12), 1, 0.753);\n    fbcf3 = feedbackCombFilter(x, mstosamps(64.04), 1, 0.802);\n    fbcf4 = feedbackCombFilter(x, mstosamps(90.04), 1, 0.733);\n\n    return fbcf1, fbcf2, fbcf3, fbcf4;\n}\n\nmixingMatrix(x1, x2, x3, x4)\n{\n    s1 = x1 + x2;\n    s2 = x3 + x4;\n\n    y1 = s1 + s2;\n    y2 = -y1;\n    y3 = s1 - s2;\n    y4 = -y3;\n\n    return y1, y2, y3, y4;\n}\n\nschroederJcrev(x)\n{\n    return mixingMatrix(refrector(diffuser(x)));\n}\n\n//============================================================\n// main loop\n\nout1, out2, out3, out4 = schroederJcrev(in1);",
+									"code" : "//============================================================\n// Shaping positive and negative components separately.\n\n//============================================================\n// functions\n\nsplitPN(x)\n{\n    pos, neg = gate((x<0) + 1, x, choices=2);\n    return pos, neg;\n}\n\nshapeAsym(x, gain, ratio)\n{\n    pos, neg = splitPN(x);\n\n    ypos = tanh(pos*gain);\n    yneg = tanh(neg*gain*ratio);\n\n    return ypos + yneg;\n}\n\n//============================================================\n// parameters\n\nParam gain(1);\nParam ratio(1.618, min=0);\n\n//============================================================\n// main loop\n\nout1 = shapeAsym(in1, gain, ratio);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
 									"id" : "obj-5",
 									"maxclass" : "codebox",
 									"numinlets" : 1,
-									"numoutlets" : 4,
-									"outlettype" : [ "", "", "", "" ],
-									"patching_rect" : [ 10.0, 40.0, 599.0, 400.0 ]
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 10.0, 40.0, 620.0, 400.0 ]
 								}
 
 							}
@@ -246,31 +264,10 @@
 								}
 
 							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-6", 0 ],
-									"source" : [ "obj-5", 1 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-7", 0 ],
-									"source" : [ "obj-5", 2 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-8", 0 ],
-									"source" : [ "obj-5", 3 ]
-								}
-
-							}
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 50.0, 85.999999999999972, 21.0 ],
+					"patching_rect" : [ 10.0, 150.0, 32.0, 21.0 ],
 					"text" : "gen~"
 				}
 
@@ -278,59 +275,68 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 1 ],
-					"midpoints" : [ 86.499999999999972, 80.0, 41.5, 80.0 ],
-					"source" : [ "obj-50", 3 ]
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 0 ],
-					"midpoints" : [ 64.166666666666657, 80.0, 19.5, 80.0 ],
-					"source" : [ "obj-50", 2 ]
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 1 ],
-					"source" : [ "obj-50", 1 ]
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-12", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-65", 0 ],
-					"source" : [ "obj-50", 0 ]
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-3", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-50", 0 ],
-					"source" : [ "obj-55", 0 ]
+					"destination" : [ "obj-5", 1 ],
+					"midpoints" : [ 19.5, 329.5, 45.5, 329.5 ],
+					"order" : 0,
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-66", 1 ],
-					"midpoints" : [ 25.0, 237.5, 45.5, 237.5 ],
-					"source" : [ "obj-65", 1 ]
+					"destination" : [ "obj-5", 0 ],
+					"order" : 1,
+					"source" : [ "obj-4", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-66", 0 ],
-					"source" : [ "obj-65", 0 ]
+					"destination" : [ "obj-1", 0 ],
+					"midpoints" : [ 49.5, 140.0, 19.5, 140.0 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"midpoints" : [ 119.5, 140.0, 19.5, 140.0 ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
  ],
 		"parameters" : 		{
-			"obj-65" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-4" : [ "live.gain~", "live.gain~", 0 ],
 			"parameterbanks" : 			{
 
 			}
