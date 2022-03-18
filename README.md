@@ -1,4 +1,3 @@
 # About
 
-This is a collection of patches using gen~. All gen~ are written as functions by genexpr. So it is easy to copy and paste.
-
+Most patches are written as functions in genexpr. Therefore, it is easy to copy and paste.
