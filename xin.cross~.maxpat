@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 296.0, 241.0, 304.0, 337.0 ],
+		"rect" : [ 242.0, 254.0, 317.0, 391.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,37 +40,25 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-7",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 70.0, 40.0, 50.0, 21.0 ],
-					"text" : "freq $1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-11",
+					"id" : "obj-62",
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 10.0, 280.0, 45.0, 45.0 ]
+					"patching_rect" : [ 10.0, 320.0, 50.0, 50.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"channels" : 1,
-					"id" : "obj-3",
+					"id" : "obj-61",
 					"lastchannelcount" : 0,
 					"maxclass" : "live.gain~",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 60.0, 120.0, 48.0, 136.0 ],
+					"patching_rect" : [ 40.0, 160.0, 30.0, 136.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_initial" : [ -70.0 ],
@@ -94,14 +82,14 @@
 , 			{
 				"box" : 				{
 					"channels" : 1,
-					"id" : "obj-6",
+					"id" : "obj-60",
 					"lastchannelcount" : 0,
 					"maxclass" : "live.gain~",
 					"numinlets" : 1,
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 10.0, 120.0, 48.0, 136.0 ],
+					"patching_rect" : [ 10.0, 160.0, 30.0, 136.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_initial" : [ -70.0 ],
@@ -125,31 +113,31 @@
 , 			{
 				"box" : 				{
 					"format" : 6,
-					"id" : "obj-4",
+					"id" : "obj-59",
 					"maxclass" : "flonum",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 70.0, 10.0, 50.0, 21.0 ]
+					"patching_rect" : [ 40.0, 60.0, 50.0, 21.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 40.0, 90.0, 50.0, 21.0 ],
+					"text" : "freq $1"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-2",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "signal" ],
-					"patching_rect" : [ 10.0, 10.0, 44.0, 21.0 ],
-					"text" : "noise~"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-1",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
@@ -165,7 +153,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 567.0, 297.0, 640.0, 480.0 ],
+						"rect" : [ 994.0, 166.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -206,7 +194,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// One-pole filter.\n\n//============================================================\n// functions\n\nonepoleLP(x0, freq)\n{\n    History y1(0);\n    History b1(1);\n\n    if(change(freq))\n    {\n        b1 = exp(-freq * TWOPI / SAMPLERATE);\n    }\n\n    a0 = 1 - b1;\n\n    y0 = x0*a0 + y1*b1;\n    y1 = y0;\n\n    return y0;\n}\n\nonepoleHP(input, freq)\n{\n    return input - onepoleLP(input, freq);\n}\n\n//============================================================\n// parameters\n\nParam freq(0, min=0);\n\n//============================================================\n// main loop\n\nout1 = onepoleLP(in1, freq);\nout2 = onepoleHP(in1, freq);",
+									"code" : "//============================================================\n// 4th order crossover filter.\n\n//============================================================\n// functions\n\ngetCoeffLP(fc, Q)\n{\n    K    = tan(pi * fc/samplerate);\n    norm = 1 / (1 + K / Q + K * K);\n    a0   = K * K * norm;\n    a1   = 2 * a0;\n    a2   = a0;\n    b1   = 2 * (K * K - 1) * norm;\n    b2   = (1 - K / Q + K * K) * norm;\n\n    return a0, a1, a2, b1, b2;\n}\n\ngetCoeffHP(fc, Q)\n{\n    K    = tan(pi * fc/samplerate);\n    norm = 1 / (1 + K / Q + K * K);\n    a0   = 1 * norm;\n    a1   = -2 * a0;\n    a2   = a0;\n    b1   = 2 * (K * K - 1) * norm;\n    b2   = (1 - K / Q + K * K) * norm;\n\n    return a0, a1, a2, b1, b2;\n}\n\nbiquad(x, a0, a1, a2, b1, b2)\n{\n    History x1(0);\n    History x2(0);\n    History y1(0);\n    History y2(0);\n\n    y  = (x*a0 + x1*a1 + x2*a2) - (y1*b1 + y2*b2);\n    x2 = x1;\n    x1 = x;\n    y2 = y1;\n    y1 = y;\n\n    return y;\n}\n\ncross(x, fc)\n{\n    History lpf_a0(0);\n    History lpf_a1(0);\n    History lpf_a2(0);\n    History lpf_b1(0);\n    History lpf_b2(0);\n    History hpf_a0(0);\n    History hpf_a1(0);\n    History hpf_a2(0);\n    History hpf_b1(0);\n    History hpf_b2(0);\n\n    if(change(fc))\n    {\n        lpf_a0, lpf_a1, lpf_a2, lpf_b1, lpf_b2 = getCoeffLP(fc, 0.707);\n        hpf_a0, hpf_a1, hpf_a2, hpf_b1, hpf_b2 = getCoeffHP(fc, 0.707);\n    }\n\n    y_lpf = biquad(x,     lpf_a0, lpf_a1, lpf_a2, lpf_b1, lpf_b2);\n    y_lpf = biquad(y_lpf, lpf_a0, lpf_a1, lpf_a2, lpf_b1, lpf_b2);\n    y_hpf = biquad(x,     hpf_a0, hpf_a1, hpf_a2, hpf_b1, hpf_b2);\n    y_hpf = biquad(y_hpf, hpf_a0, hpf_a1, hpf_a2, hpf_b1, hpf_b2);\n\n    return y_lpf, y_hpf;\n}\n\n//============================================================\n// parameters\n\nParam freq(1, min=1);\n\n//============================================================\n// main loop\n\nout1, out2 = cross(in1, freq);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -267,89 +255,98 @@
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 80.0, 39.0, 21.0 ],
+					"patching_rect" : [ 10.0, 130.0, 49.0, 21.0 ],
 					"text" : "gen~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 10.0, 10.0, 44.0, 21.0 ],
+					"text" : "noise~"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"midpoints" : [ 39.5, 110.0, 69.5, 110.0 ],
-					"source" : [ "obj-1", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-60", 0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 1 ],
-					"midpoints" : [ 69.5, 267.5, 45.5, 267.5 ],
-					"order" : 0,
-					"source" : [ "obj-3", 0 ]
+					"destination" : [ "obj-61", 0 ],
+					"source" : [ "obj-2", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"midpoints" : [ 69.5, 267.5, 19.5, 267.5 ],
-					"order" : 1,
-					"source" : [ "obj-3", 0 ]
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ "obj-59", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-11", 1 ],
-					"midpoints" : [ 19.5, 267.5, 45.5, 267.5 ],
-					"order" : 0,
+					"destination" : [ "obj-2", 0 ],
+					"midpoints" : [ 49.5, 120.0, 19.5, 120.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-11", 0 ],
-					"midpoints" : [ 19.5, 267.5, 19.5, 267.5 ],
-					"order" : 1,
-					"source" : [ "obj-6", 0 ]
+					"destination" : [ "obj-62", 1 ],
+					"midpoints" : [ 19.5, 307.5, 50.5, 307.5 ],
+					"order" : 0,
+					"source" : [ "obj-60", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"midpoints" : [ 79.5, 70.0, 19.5, 70.0 ],
-					"source" : [ "obj-7", 0 ]
+					"destination" : [ "obj-62", 0 ],
+					"order" : 1,
+					"source" : [ "obj-60", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-62", 1 ],
+					"order" : 0,
+					"source" : [ "obj-61", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-62", 0 ],
+					"midpoints" : [ 49.5, 307.5, 19.5, 307.5 ],
+					"order" : 1,
+					"source" : [ "obj-61", 0 ]
 				}
 
 			}
  ],
 		"parameters" : 		{
-			"obj-3" : [ "live.gain~[1]", "live.gain~", 0 ],
-			"obj-6" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-60" : [ "live.gain~", "live.gain~", 0 ],
+			"obj-61" : [ "live.gain~[1]", "live.gain~", 0 ],
 			"parameterbanks" : 			{
 
 			}
