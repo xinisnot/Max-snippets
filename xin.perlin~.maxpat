@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 919.0, 212.0, 477.0, 226.0 ],
+		"rect" : [ 368.0, 198.0, 465.0, 219.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -241,7 +241,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 946.0, 383.0, 640.0, 480.0 ],
+						"rect" : [ 220.0, 486.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -282,7 +282,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// perlin noise\n\n//============================================================\n// functions\n\nclock(p)\n{\n    History x1(0);\n\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y;\n}\n\nperlin(buf_wavelet, freq, gain)\n{\n    History aCurr(0);\n    History aNext(0);\r\n\r\n    phase   = phasor(freq);\r\n    trigger = clock(phase);\n\n    if(trigger==1)\n    {\n        aCurr = aNext;\n        aNext = noise() * gain;\n    }\n\n    yCurr = nearest(buf_wavelet, phase) * aCurr * (phase*2-1);\n    yNext = nearest(buf_wavelet, phase) * aNext * (phase*2-1);\n\n    return yCurr + phase * (yCurr - yNext);\n}\n\n//============================================================\n// buffers\n\nBuffer buf_wavelet(\"\");\r\n\r\n//============================================================\n// parameters\r\n\r\nParam gain(3, min=0);\n\n//============================================================\n// main loop\n\nout1 = perlin(buf_wavelet, in1, gain);",
+									"code" : "//============================================================\n// 1 dimensional perlin noise\n\n//============================================================\n// functions\n\nclock(p)\n{\n    History x1(0);\n\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y;\n}\n\nperlin(buf_wavelet, freq, gain)\n{\n    History aNext(0);\n    History aCurr(0);\n\n    phaseNext  = phasor(freq);\n    phaseCurr  = wrap(phaseNext+0.5, 0, 1);\n    \n    trigNext   = clock(phaseNext);\r\n    trigCurr   = clock(phaseCurr);\n\n    if(trigNext==1)\n    {\n        aNext = noise()*gain;\n    }\r\n    if(trigCurr==1)\n    {\n        aCurr = noise()*gain;\n    }\n\n    yNext = nearest(buf_wavelet, phaseNext) * aNext * (phaseNext*2-1);\n    yCurr = nearest(buf_wavelet, phaseCurr) * aCurr * (phaseCurr*2-1);\n\n    return mix(yCurr, yNext, 0.5);\n}\n\n//============================================================\n// buffers\n\nBuffer buf_wavelet(\"\");\n\n//============================================================\n// parameters\n\nParam gain(3, min=0);\n\n//============================================================\n// main loop\n\nout1 = perlin(buf_wavelet, in1, gain);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -325,7 +325,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 10.0, 90.0, 32.0, 21.0 ],
+					"patching_rect" : [ 10.0, 90.0, 50.5, 21.0 ],
 					"text" : "gen~"
 				}
 
@@ -403,6 +403,14 @@
 
 			}
  ],
+		"parameters" : 		{
+			"parameterbanks" : 			{
+
+			}
+,
+			"inherited_shortname" : 1
+		}
+,
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}
