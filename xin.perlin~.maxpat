@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 368.0, 198.0, 465.0, 219.0 ],
+		"rect" : [ 368.0, 198.0, 513.0, 219.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,6 +40,18 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "signal" ],
+					"patching_rect" : [ 10.0, 10.0, 68.0, 21.0 ],
+					"text" : "phasor~ 4n"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"format" : 6,
 					"id" : "obj-36",
 					"maxclass" : "flonum",
@@ -47,7 +59,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 70.0, 10.0, 50.0, 21.0 ]
+					"patching_rect" : [ 100.0, 10.0, 50.0, 21.0 ]
 				}
 
 			}
@@ -58,7 +70,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 70.0, 40.0, 50.0, 21.0 ],
+					"patching_rect" : [ 100.0, 40.0, 50.0, 21.0 ],
 					"text" : "gain $1"
 				}
 
@@ -76,25 +88,12 @@
 			}
 , 			{
 				"box" : 				{
-					"format" : 6,
-					"id" : "obj-18",
-					"maxclass" : "flonum",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "bang" ],
-					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 10.0, 50.0, 21.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-25",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 230.0, 50.0, 164.0, 21.0 ],
+					"patching_rect" : [ 260.0, 50.0, 164.0, 21.0 ],
 					"text" : "buf_wavelet ---buf_wavelet"
 				}
 
@@ -106,7 +105,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 240.0, 90.0, 212.0, 21.0 ],
+					"patching_rect" : [ 270.0, 90.0, 212.0, 21.0 ],
 					"text" : "buffer~ ---buf_wavelet @samps 8192"
 				}
 
@@ -194,7 +193,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 199.0, 90.0, 29.5, 21.0 ],
+					"patching_rect" : [ 229.0, 90.0, 29.5, 21.0 ],
 					"text" : "gen"
 				}
 
@@ -206,7 +205,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 150.0, 10.0, 56.0, 21.0 ],
+					"patching_rect" : [ 180.0, 10.0, 56.0, 21.0 ],
 					"text" : "loadbang"
 				}
 
@@ -218,7 +217,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "bang", "int" ],
-					"patching_rect" : [ 150.0, 50.0, 68.0, 21.0 ],
+					"patching_rect" : [ 180.0, 50.0, 68.0, 21.0 ],
 					"text" : "uzi 8192 0"
 				}
 
@@ -282,7 +281,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// 1 dimensional perlin noise\n\n//============================================================\n// functions\n\nclock(p)\n{\n    History x1(0);\n\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y;\n}\n\nperlin(buf_wavelet, freq, gain)\n{\n    History aNext(0);\n    History aCurr(0);\n\n    phaseNext  = phasor(freq);\n    phaseCurr  = wrap(phaseNext+0.5, 0, 1);\n    \n    trigNext   = clock(phaseNext);\r\n    trigCurr   = clock(phaseCurr);\n\n    if(trigNext==1)\n    {\n        aNext = noise()*gain;\n    }\r\n    if(trigCurr==1)\n    {\n        aCurr = noise()*gain;\n    }\n\n    yNext = nearest(buf_wavelet, phaseNext) * aNext * (phaseNext*2-1);\n    yCurr = nearest(buf_wavelet, phaseCurr) * aCurr * (phaseCurr*2-1);\n\n    return mix(yCurr, yNext, 0.5);\n}\n\n//============================================================\n// buffers\n\nBuffer buf_wavelet(\"\");\n\n//============================================================\n// parameters\n\nParam gain(3, min=0);\n\n//============================================================\n// main loop\n\nout1 = perlin(buf_wavelet, in1, gain);",
+									"code" : "//============================================================\n// 1 dimensional perlin noise\n\n//============================================================\n// functions\n\nclock(p)\n{\n    History x1(0);\n\n    x  = p <= 0.5;\n    y  = x-x1 == 1;\n    x1 = x;\n\n    return y;\n}\n\nperlin(buf_wavelet, phase, gain)\n{\n    History aNext(0);\n    History aCurr(0);\n\n    phaseNext  = phase;\n    phaseCurr  = wrap(phaseNext+0.5, 0, 1);\n    \n    trigNext   = clock(phaseNext);\r\n    trigCurr   = clock(phaseCurr);\n\n    if(trigNext==1)\n    {\n        aNext = noise()*gain;\n    }\r\n    if(trigCurr==1)\n    {\n        aCurr = noise()*gain;\n    }\n\n    yNext = nearest(buf_wavelet, phaseNext) * aNext * (phaseNext*2-1);\n    yCurr = nearest(buf_wavelet, phaseCurr) * aCurr * (phaseCurr*2-1);\n\n    return mix(yCurr, yNext, 0.5);\n}\n\n//============================================================\n// buffers\n\nBuffer buf_wavelet(\"\");\n\n//============================================================\n// parameters\n\nParam gain(3, min=0);\n\n//============================================================\n// main loop\n\nout1 = perlin(buf_wavelet, in1, gain);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
@@ -333,15 +332,15 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-31", 0 ],
-					"source" : [ "obj-10", 0 ]
+					"destination" : [ "obj-10", 0 ],
+					"source" : [ "obj-1", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-10", 0 ],
-					"source" : [ "obj-18", 0 ]
+					"destination" : [ "obj-31", 0 ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
@@ -363,7 +362,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
-					"midpoints" : [ 159.5, 40.0, 239.5, 40.0 ],
+					"midpoints" : [ 189.5, 40.0, 269.5, 40.0 ],
 					"order" : 0,
 					"source" : [ "obj-21", 0 ]
 				}
@@ -372,7 +371,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
-					"midpoints" : [ 239.5, 80.0, 19.5, 80.0 ],
+					"midpoints" : [ 269.5, 80.0, 19.5, 80.0 ],
 					"order" : 1,
 					"source" : [ "obj-25", 0 ]
 				}
@@ -381,7 +380,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
-					"midpoints" : [ 239.5, 80.0, 208.5, 80.0 ],
+					"midpoints" : [ 269.5, 80.0, 238.5, 80.0 ],
 					"order" : 0,
 					"source" : [ "obj-25", 0 ]
 				}
@@ -390,7 +389,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-10", 0 ],
-					"midpoints" : [ 79.5, 80.0, 19.5, 80.0 ],
+					"midpoints" : [ 109.5, 80.0, 19.5, 80.0 ],
 					"source" : [ "obj-34", 0 ]
 				}
 
@@ -403,14 +402,6 @@
 
 			}
  ],
-		"parameters" : 		{
-			"parameterbanks" : 			{
-
-			}
-,
-			"inherited_shortname" : 1
-		}
-,
 		"dependency_cache" : [  ],
 		"autosave" : 0
 	}
