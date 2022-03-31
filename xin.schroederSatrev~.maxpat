@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 59.0, 104.0, 319.0, 311.0 ],
+		"rect" : [ 589.0, 271.0, 319.0, 311.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -137,7 +137,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// Schroeder reverberator (SATREV).\n// https://ccrma.stanford.edu/~jos/pasp/Example_Schroeder_Reverberators.html\n\n//============================================================\n// functions\n\nallpassFilter(x, n, g)\n{\n    Delay del(SAMPLERATE);\n\n    y1 = x - del.read(n) * g;\n    y  = del.read(n) + y1 * g;\n\n    del.write(y1);\n\n    return y;\n}\n\nfeedbackCombFilter(x, n, b, a)\n{\n    Delay del(SAMPLERATE);\n\n    y = x * b  - a * del.read(n);\n    del.write(y);\n\n    return y;\n}\n\ndiffuser(x)\n{\n    apf1 = allpassFilter(x,    mstosamps(5),     0.7);\n    apf2 = allpassFilter(apf1, mstosamps(1.68),  0.7);\n    apf3 = allpassFilter(apf2, mstosamps(0.48),  0.7);\n\n    return apf3;\n}\n\nrefrector(x)\n{\n    fbcf1 = feedbackCombFilter(x, mstosamps(36.04), 1, 0.805);\n    fbcf2 = feedbackCombFilter(x, mstosamps(31.12), 1, 0.827);\n    fbcf3 = feedbackCombFilter(x, mstosamps(40.44), 1, 0.783);\n    fbcf4 = feedbackCombFilter(x, mstosamps(44.92), 1, 0.764);\n\n    return fbcf1, fbcf2, fbcf3, fbcf4;\n}\n\nschroederSatrev(x)\n{\n    y1, y2, y3, y4 = refrector(x);\n    y              = diffuser(y1+y2+y3+y4);\n\n    return y, -y;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = schroederSatrev(in1);",
+									"code" : "//============================================================\n// Schroeder reverberator (SATREV).\n// https://ccrma.stanford.edu/~jos/pasp/Example_Schroeder_Reverberators.html\n\n//============================================================\n// functions\n\nallpassFilter(x, m, a)\n{\n    Delay delx(SAMPLERATE);\n    Delay dely(SAMPLERATE);\n\n    x1 = delx.read(m);\n    y1 = dely.read(m);\n    y  = (x - y1) * a;\n\n    delx.write(x);\n    dely.write(y+x1);\n\n    return y+x1;\n}\r\n\nfeedbackCombFilter(x, n, b, a)\n{\n    Delay del(SAMPLERATE);\n\n    y = x * b  - a * del.read(n);\n    del.write(y);\n\n    return y;\n}\n\ndiffuser(x)\n{\n    apf1 = allpassFilter(x,    mstosamps(5),     0.7);\n    apf2 = allpassFilter(apf1, mstosamps(1.68),  0.7);\n    apf3 = allpassFilter(apf2, mstosamps(0.48),  0.7);\n\n    return apf3;\n}\n\nrefrector(x)\n{\n    fbcf1 = feedbackCombFilter(x, mstosamps(36.04), 1, 0.805);\n    fbcf2 = feedbackCombFilter(x, mstosamps(31.12), 1, 0.827);\n    fbcf3 = feedbackCombFilter(x, mstosamps(40.44), 1, 0.783);\n    fbcf4 = feedbackCombFilter(x, mstosamps(44.92), 1, 0.764);\n\n    return fbcf1, fbcf2, fbcf3, fbcf4;\n}\n\nschroederSatrev(x)\n{\n    y1, y2, y3, y4 = refrector(x);\n    y              = diffuser(y1+y2+y3+y4);\n\n    return y, -y;\n}\n\n//============================================================\n// main loop\n\nout1, out2 = schroederSatrev(in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,

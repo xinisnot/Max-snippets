@@ -132,7 +132,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 296.0, 241.0, 640.0, 480.0 ],
+						"rect" : [ 679.0, 314.0, 640.0, 480.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -195,7 +195,7 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "//============================================================\n// Schroeder reverberator (JCREV).\n// https://ccrma.stanford.edu/~jos/pasp/Schroeder_Reverberators.html\n\n//============================================================\n// functions\n\nallpassFilter(x, n, g)\n{\n    Delay del(SAMPLERATE);\n\n    y1 = x - del.read(n) * g;\n    y  = del.read(n) + y1 * g;\n\n    del.write(y1);\n\n    return y;\n}\n\nfeedbackCombFilter(x, n, b, a)\n{\n    Delay del(SAMPLERATE);\n\n    y = x * b  - a * del.read(n);\n    del.write(y);\n\n    return y;\n}\n\ndiffuser(x)\n{\n    apf1 = allpassFilter(x,    mstosamps(13.88), 0.7);\n    apf2 = allpassFilter(apf1, mstosamps(4.52),  0.7);\n    apf3 = allpassFilter(apf2, mstosamps(1.48),  0.7);\n\n    return apf3;\n}\n\nrefrector(x)\n{\n    fbcf1 = feedbackCombFilter(x, mstosamps(67.48), 1, 0.773);\n    fbcf2 = feedbackCombFilter(x, mstosamps(82.12), 1, 0.753);\n    fbcf3 = feedbackCombFilter(x, mstosamps(64.04), 1, 0.802);\n    fbcf4 = feedbackCombFilter(x, mstosamps(90.04), 1, 0.733);\n\n    return fbcf1, fbcf2, fbcf3, fbcf4;\n}\n\nmixingMatrix(x1, x2, x3, x4)\n{\n    s1 = x1 + x2;\n    s2 = x3 + x4;\n\n    y1 = s1 + s2;\n    y2 = -y1;\n    y3 = s1 - s2;\n    y4 = -y3;\n\n    return y1, y2, y3, y4;\n}\n\nschroederJcrev(x)\n{\n    return mixingMatrix(refrector(diffuser(x)));\n}\n\n//============================================================\n// main loop\n\nout1, out2, out3, out4 = schroederJcrev(in1);",
+									"code" : "//============================================================\n// Schroeder reverberator (JCREV).\n// https://ccrma.stanford.edu/~jos/pasp/Schroeder_Reverberators.html\n\n//============================================================\n// functions\n\nallpassFilter(x, m, a)\n{\n    Delay delx(SAMPLERATE);\n    Delay dely(SAMPLERATE);\n\n    x1 = delx.read(m);\n    y1 = dely.read(m);\n    y  = (x - y1) * a;\n\n    delx.write(x);\n    dely.write(y+x1);\n\n    return y+x1;\n}\n\nfeedbackCombFilter(x, n, b, a)\n{\n    Delay del(SAMPLERATE);\n\n    y = x * b  - a * del.read(n);\n    del.write(y);\n\n    return y;\n}\n\ndiffuser(x)\n{\n    apf1 = allpassFilter(x,    mstosamps(13.88), 0.7);\n    apf2 = allpassFilter(apf1, mstosamps(4.52),  0.7);\n    apf3 = allpassFilter(apf2, mstosamps(1.48),  0.7);\n\n    return apf3;\n}\n\nrefrector(x)\n{\n    fbcf1 = feedbackCombFilter(x, mstosamps(67.48), 1, 0.773);\n    fbcf2 = feedbackCombFilter(x, mstosamps(82.12), 1, 0.753);\n    fbcf3 = feedbackCombFilter(x, mstosamps(64.04), 1, 0.802);\n    fbcf4 = feedbackCombFilter(x, mstosamps(90.04), 1, 0.733);\n\n    return fbcf1, fbcf2, fbcf3, fbcf4;\n}\n\nmixingMatrix(x1, x2, x3, x4)\n{\n    s1 = x1 + x2;\n    s2 = x3 + x4;\n\n    y1 = s1 + s2;\n    y2 = -y1;\n    y3 = s1 - s2;\n    y4 = -y3;\n\n    return y1, y2, y3, y4;\n}\n\nschroederJcrev(x)\n{\n    return mixingMatrix(refrector(diffuser(x)));\n}\n\n//============================================================\n// main loop\n\nout1, out2, out3, out4 = schroederJcrev(in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
