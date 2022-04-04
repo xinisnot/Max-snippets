@@ -46,7 +46,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 170.0, 170.0, 230.0, 34.0 ],
+					"patching_rect" : [ 170.0, 170.0, 236.0, 34.0 ],
 					"text" : "buf_sinesumParam ---buf_sinesumParam, buf_sinesum ---buf_sinesum"
 				}
 
@@ -123,7 +123,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"code" : "//============================================================\n// Allocate lists to buffers.\n\n//============================================================\n// functions\n\nallocSinesum(buf, buf_param, idx)\n{\n\ty = 0;\n\t\n    if(idx<dim(buf))\n    {\n        x = 0;\n\n        for(itr=0; itr<dim(buf_param); itr+=1)\n        {\n            a  = peek(buf_param, itr);\n            x += sin(TWOPI * (itr+1) * idx/dim(buf)) * a;\n        }\n\n        poke(buf, x, idx);\n\n        if((idx+1)==dim(buf))\n        {\n            y = 1;\n        }\n    }\n\n    return y;\n}\n\n//============================================================\n// buffer\n\nBuffer buf_sinesum(\"\");\nBuffer buf_sinesumParam(\"\");\n\n//============================================================\n// main process\n\nout1 = allocSinesum(buf_sinesum, buf_sinesumParam, in1);",
+									"code" : "//============================================================\n// Allocate lists to buffers.\n\n//============================================================\n// functions\n\nallocSinesum(buf, buf_param, idx)\n{\n    y = 0;\n\n    if(idx<dim(buf))\n    {\n        x = 0;\n\n        for(itr=0; itr<dim(buf_param); itr+=1)\n        {\n            a  = peek(buf_param, itr);\n            x += sin(TWOPI * (itr+1) * idx/dim(buf)) * a;\n        }\n\n        poke(buf, x, idx);\n\n        if((idx+1)==dim(buf))\n        {\n            y = 1;\n        }\n    }\n\n    return y;\n}\n\n//============================================================\n// buffer\n\nBuffer buf_sinesum(\"\");\nBuffer buf_sinesumParam(\"\");\n\n//============================================================\n// main process\n\nout1 = allocSinesum(buf_sinesum, buf_sinesumParam, in1);",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
